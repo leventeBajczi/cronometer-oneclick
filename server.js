@@ -83,9 +83,9 @@ function sesnonce(csrf) {
     });
 }
 
-function addData(nonce, id, amount) {
+function addData(nonce, id, amount, dateStr) {
     return new Promise((resolve, reject) => {
-        const date = new Date();
+        const date = new Date(dateStr);
 
         const day = date.getDate();
         const month = date.getMonth() + 1;
@@ -123,13 +123,13 @@ function addData(nonce, id, amount) {
     });
 }
 
-function handleData(amount) {
+function handleData(amount, date) {
     return new Promise((resolve, reject) => {
         csrf().then(csrf => sesnonce(csrf).then(nonce => {
-            addData(nonce, caloriesId, amount.calories).then(ret1 => {
-                addData(nonce, proteinId, amount.protein).then(ret2 => {
-                    addData(nonce, carbohydrateId, amount.carbohydrate).then(ret3 => {
-                        addData(nonce, fatId, amount.fat).then(ret4 => resolve(JSON.stringify([ret1, ret2, ret3, ret4])));
+            addData(nonce, caloriesId, amount.calories, date).then(ret1 => {
+                addData(nonce, proteinId, amount.protein, date).then(ret2 => {
+                    addData(nonce, carbohydrateId, amount.carbohydrate, date).then(ret3 => {
+                        addData(nonce, fatId, amount.fat, date).then(ret4 => resolve(JSON.stringify([ret1, ret2, ret3, ret4])));
                     })
                 })
             });
@@ -165,21 +165,10 @@ const server = http.createServer((req, res) => {
                 carbohydrate: data.carbohydrate * data.amount,
                 fat: data.fat * data.amount,
             };
-            handleData(amounts).then((data) => {
+            handleData(amounts,data.date).then((data) => {
                 res.write(data);
                 res.end();
             });
-
-            // res.writeHead(200, { 'Content-Type': 'text/html' });
-            // fs.readFile('./form.html', null, (error, data) => {
-            //     if (error) {
-            //         res.writeHead(404);
-            //         res.write('File not found!');
-            //     } else {
-            //         res.write(data);
-            //     }
-            //     res.end();
-            // });
         });
     }
 });
