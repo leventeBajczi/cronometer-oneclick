@@ -90,7 +90,8 @@ function addData(nonce, id, amount, dateStr) {
         const day = date.getDate();
         const month = date.getMonth() + 1;
         const year = date.getFullYear();
-        const data = `7|0|9|https://cronometer.com/cronometer/|3F3D68A6C8269C1940D0F9F4147958AE|com.cronometer.shared.rpc.CronometerService|addServing|java.lang.String/2004016611|com.cronometer.shared.entries.models.Serving/955192269|I|${nonce}|com.cronometer.shared.entries.models.Day/782579793|1|2|3|4|3|5|6|7|8|6|9|${day}|${month}|${year}|0|0|0|${(amount*100).toFixed(0)}|${id.food}|A|${id.serving}|3|0|4677888|`;
+        // const data = `7|0|9|https://cronometer.com/cronometer/|3F3D68A6C8269C1940D0F9F4147958AE|com.cronometer.shared.rpc.CronometerService|addServing|java.lang.String/2004016611|com.cronometer.shared.entries.models.Serving/955192269|I|${nonce}|com.cronometer.shared.entries.models.Day/782579793|1|2|3|4|3|5|6|7|8|6|9|${day}|${month}|${year}|0|0|0|${(amount*100).toFixed(0)}|${id.food}|A|${id.serving}|3|0|4677888|`;
+        const data = `7|0|9|https://cronometer.com/cronometer/|82CCD30578522199DE0F5458B8D07285|com.cronometer.shared.rpc.CronometerService|addServing|java.lang.String/2004016611|com.cronometer.shared.entries.models.Serving/2553599101|I|${nonce}|com.cronometer.shared.entries.models.Day/782579793|1|2|3|4|3|5|6|7|8|6|9|${day}|${month}|${year}|1|1|0|4|0|0|${(amount*100).toFixed(0)}|${id.food}|A|${id.serving}|0|0|4677888|`
         console.log(data);
         const options = {
         hostname: 'cronometer.com',
